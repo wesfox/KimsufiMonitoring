@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 from requests_html import HTMLSession
 
 send_mail = 'ENV' in os.environ and os.environ['ENV'] == "PROD"
+sleep_time_to_load_js = 3
 
 def my_sleep(n):
     for i in range(n*10):
@@ -33,7 +34,7 @@ while True:
     quote_page = 'https://www.kimsufi.com/fr/serveurs.xml'
     session = HTMLSession()
     r = session.get(quote_page)
-    r.html.render(sleep=5)
+    r.html.render(sleep=sleep_time_to_load_js)
     # with open('test.html','w+') as f:
     #     f.write(r.html.find('body', first=True).html)
     body = r.html.find('body', first=True).html
@@ -91,6 +92,6 @@ while True:
     if state == "AVAILABLE":
         sleep_time = 7200
     if state == "LOST":
-        my_sleep(60*60*12)
-    print("{} Kimsufi state : {}".format(searching_for["name"],state))
+        sleep_time = 60*60*12
+    print("{} Kimsufi state : {} - {}".format(searching_for["name"],state,time.ctime()))
     my_sleep(sleep_time)
