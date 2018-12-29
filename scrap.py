@@ -1,21 +1,21 @@
 # import libraries
+import json
+import os
+import re
+import smtplib
+import time
+
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
-import smtplib
-import re
-import os
-import time
 from requests_html import HTMLSession
 
 send_mail = 'ENV' in os.environ and os.environ['ENV'] == "PROD"
 
-searching_for = {
-    "name":"KS-2",
-    "ref":"1801sk13"
-}
+# searching for
+with open('searched.json') as f:
+    searching_for = json.loads('\n'.join(f.readlines()))
 
 # credentials
-
 with open('gg_mdp_access.txt') as f:
     gmail_password = f.read()
 
@@ -81,6 +81,7 @@ while True:
         server.login(gmail_user, gmail_password)
         server.sendmail(sent_from, to, email_text)
         server.close()
+        print("Mail sent.")
 
     sleep_time = 10
     if state == "AVAILABLE":
