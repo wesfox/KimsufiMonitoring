@@ -11,6 +11,10 @@ from requests_html import HTMLSession
 
 send_mail = 'ENV' in os.environ and os.environ['ENV'] == "PROD"
 
+def my_sleep(n):
+    for i in range(n*10):
+        time.sleep(0.1)
+
 # searching for
 with open('searched.json') as f:
     searching_for = json.loads('\n'.join(f.readlines()))
@@ -87,7 +91,6 @@ while True:
     if state == "AVAILABLE":
         sleep_time = 7200
     if state == "LOST":
-        while True:
-            time.sleep(1)
+        my_sleep(60*60*12)
     print("{} Kimsufi state : {}".format(searching_for["name"],state))
-    time.sleep(sleep_time)
+    my_sleep(sleep_time)
