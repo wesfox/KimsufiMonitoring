@@ -25,7 +25,7 @@ For Canada it's 1804 instead of 1801.
 
 > ./install.sh
 
-You also need to get a unique gmail password for the app
+You also need to get a unique gmail password for the app. (you may need to add a 2 step auth in order to get this option available)
 go -> https://myaccount.google.com/apppasswords?utm_source=google-account&utm_medium=web
 
 > echo "myGmailPwd" > gg_mdp_access.txt
